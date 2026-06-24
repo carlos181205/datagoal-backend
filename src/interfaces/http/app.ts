@@ -3,6 +3,7 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
 import { errorHandler, notFoundHandler } from '../../shared/http/errorHandler';
+import { requireAuth } from '../../shared/http/auth';
 
 import { jugadorRouter } from '../../modules/jugadores/interfaces/http/jugador.routes';
 import { categoriaRouter } from '../../modules/categorias/interfaces/http/categoria.routes';
@@ -27,6 +28,8 @@ export function createApp(): Express {
 
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
+
+  app.use('/api', requireAuth);
 
   app.use('/api/jugadores', jugadorRouter);
   app.use('/api/categorias', categoriaRouter);

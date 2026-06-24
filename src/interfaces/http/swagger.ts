@@ -25,7 +25,16 @@ export const swaggerSpec = swaggerJSDoc({
       { name: 'Torneos' },
       { name: 'Usuarios' },
     ],
+    security: [{ bearerAuth: [] }],
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          description: 'JWT emitido por Supabase Auth (access_token de la sesión).',
+        },
+      },
       schemas: {
         Jugador: {
           type: 'object',
