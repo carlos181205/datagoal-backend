@@ -12,6 +12,7 @@ import { UpdatePartidoUseCase } from '../../use-cases/UpdatePartidoUseCase';
 import { RegistrarEventoPartidoUseCase } from '../../use-cases/RegistrarEventoPartidoUseCase';
 import { GetEventosPartidoUseCase } from '../../use-cases/GetEventosPartidoUseCase';
 import { EliminarEventoPartidoUseCase } from '../../use-cases/EliminarEventoPartidoUseCase';
+import { GetHistorialRendimientoEquipoUseCase } from '../../use-cases/GetHistorialRendimientoEquipoUseCase';
 import { AppError } from '../../../../shared/errors/AppError';
 
 function partidoRepo() {
@@ -67,5 +68,10 @@ export const PartidoController = {
     const useCase = new EliminarEventoPartidoUseCase(eventoRepo(), estadisticasEventoRepo());
     const evento = await useCase.execute(req.params.id);
     res.json(EventoPartidoMapper.toDTO(evento));
+  },
+
+  async historialPorEquipo(req: Request, res: Response): Promise<void> {
+    const partidos = await new GetHistorialRendimientoEquipoUseCase(partidoRepo()).execute(req.params.equipo);
+    res.json(partidos.map(PartidoMapper.toDTO));
   },
 };

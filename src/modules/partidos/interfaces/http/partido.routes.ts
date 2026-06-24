@@ -87,6 +87,22 @@ partidoRouter.delete('/eventos/:id', asyncHandler(PartidoController.eliminarEven
 
 /**
  * @swagger
+ * /partidos/equipo/{equipo}/historial:
+ *   get:
+ *     tags: [Partidos]
+ *     summary: Historial cronológico de partidos de un equipo (como local o visitante)
+ *     parameters:
+ *       - in: path
+ *         name: equipo
+ *         required: true
+ *         schema: { type: string }
+ *     responses:
+ *       200: { description: Lista de partidos del equipo, ordenados por fecha descendente }
+ */
+partidoRouter.get('/equipo/:equipo/historial', asyncHandler(PartidoController.historialPorEquipo));
+
+/**
+ * @swagger
  * /partidos/{id}:
  *   get:
  *     tags: [Partidos]

@@ -49,6 +49,17 @@ export class SupabasePartidoRepository implements IPartidoRepository {
     return (data ?? []).map(PartidoMapper.toDomain);
   }
 
+  async getByEquipo(equipo: string): Promise<PartidoEntity[]> {
+    const { data, error } = await this.supabase
+      .from('partidos')
+      .select('*')
+      .or(`equipo_local.eq.${equipo},equipo_visitante.eq.${equipo}`)
+      .order('fecha', { ascending: false });
+
+    if (error) throw new AppError(error.message, 500);
+    return (data ?? []).map(PartidoMapper.toDomain);
+  }
+
   async save(partido: PartidoEntity): Promise<PartidoEntity> {
     const { data, error } = await this.supabase
       .from('partidos')
