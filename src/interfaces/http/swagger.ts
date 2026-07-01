@@ -12,6 +12,7 @@ export const swaggerSpec = swaggerJSDoc({
     },
     servers: [{ url: '/api', description: 'Servidor actual' }],
     tags: [
+      { name: 'Auth' },
       { name: 'Jugadores' },
       { name: 'Categorias' },
       { name: 'Convocatorias' },

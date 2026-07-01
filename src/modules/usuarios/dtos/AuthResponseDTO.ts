@@ -1,4 +1,5 @@
 import { RolUsuario } from '../domain/entities/UsuarioEntity';
+import { UsuarioResponseDTO } from './UsuarioResponseDTO';
 
 export type RolRegistro = 'admin' | 'entrenador' | 'jugador';
 
@@ -20,3 +21,16 @@ export interface RegisterUsuarioDTO {
   posicion?: string;
   categoria?: string;
 }
+
+export interface LoginDTO {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponseDTO {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+  usuario: UsuarioResponseDTO;
+}
+

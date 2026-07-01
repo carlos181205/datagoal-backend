@@ -17,6 +17,7 @@ import { okrRouter } from '../../modules/okr/interfaces/http/okr.routes';
 import { partidoRouter } from '../../modules/partidos/interfaces/http/partido.routes';
 import { torneoRouter } from '../../modules/torneos/interfaces/http/torneo.routes';
 import { usuarioRouter } from '../../modules/usuarios/interfaces/http/usuario.routes';
+import { authRouter } from '../../modules/usuarios/interfaces/http/auth.routes';
 
 export function createApp(): Express {
   const app = express();
@@ -29,6 +30,7 @@ export function createApp(): Express {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   app.get('/api-docs.json', (_req, res) => res.json(swaggerSpec));
 
+  app.use('/api/auth', authRouter);
   app.use('/api', requireAuth);
 
   app.use('/api/jugadores', jugadorRouter);
